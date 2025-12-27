@@ -14,7 +14,7 @@ A Next.js application for managing game nights and social gaming events.
 
 ## Project Structure
 
-```
+```text
 game_nights/
 ├── app/              # Next.js app directory
 │   ├── page.tsx      # Home page
