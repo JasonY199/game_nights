@@ -17,17 +17,40 @@ A Next.js application for managing game nights and social gaming events.
 
 ```text
 game_nights/
-├── app/              # Next.js app directory
-│   ├── page.tsx      # Home page
-│   ├── layout.tsx    # Root layout
-│   └── globals.css   # Global styles + Tailwind
-├── components/       # React components
-│   ├── ui/          # shadcn components (Button, Card)
-│   └── header.tsx   # Site header
-├── lib/              # Utility functions
-│   └── utils.ts      # shadcn utilities
-└── public/           # Static assets
+├── app/                        # Next.js app directory
+│   ├── (visitors)/            # Public home page route group
+│   │   ├── _components/       # Home page section components
+│   │   │   ├── hero-section.tsx
+│   │   │   └── coming-soon-section.tsx
+│   │   └── page.tsx           # Home page
+│   ├── (auth)/                # Auth pages (to be added)
+│   │   ├── login/
+│   │   └── register/
+│   ├── (user)/                # Authenticated user pages (to be added)
+│   │   ├── _components/       # Shared app components
+│   │   ├── dashboard/
+│   │   ├── games/
+│   │   ├── mod/               # Mod-only pages (nested)
+│   │   └── admin/             # Admin-only pages (nested)
+│   ├── layout.tsx             # Root layout
+│   └── globals.css            # Global styles + Tailwind
+├── components/                 # Shared components
+│   ├── ui/                    # shadcn components
+│   └── layout/                # Site-wide layout components
+│       ├── header.tsx         # Public header (Login button)
+│       └── footer.tsx         # Footer (all pages)
+├── lib/                        # Utility functions
+│   └── utils.ts               # shadcn utilities
+└── public/                     # Static assets
 ```
+
+### Folder Structure Principles
+
+- **Route Groups**: `(visitors)`, `(auth)`, `(user)` - organize routes without affecting URLs
+- **Private Folders**: `_components` - not accessible as routes, for components only
+- **Co-location**: Components live close to where they're used
+- **Shared Components**: Only truly universal components go in `components/`
+- **Layout Components**: Site-wide header/footer in `components/layout/`
 
 ## Development Commands
 
@@ -63,12 +86,14 @@ See **DESIGN_SYSTEM.md** for:
 
 - ✅ Next.js project initialized
 - ✅ shadcn/ui installed and configured (dark mode)
+- ✅ Project structure organized with route groups and co-located components
 - ✅ Header component with gradient logo and outline login button
 - ✅ Hero section with gradient background and feature cards
 - ✅ Coming soon section with clean design
-- ✅ Footer
+- ✅ Footer component
 - ✅ Design system documented
-- 🚧 Core features to be built
+- 🚧 Authentication pages (login/register) - to be built
+- 🚧 User dashboard and app features - to be built
 
 ## Important Notes
 
