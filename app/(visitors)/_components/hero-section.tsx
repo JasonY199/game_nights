@@ -8,11 +8,11 @@ import { Dices, Users, Trophy } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative flex-1 flex items-center overflow-hidden">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 via-transparent to-blue-500/10" />
 
-      <div className="container relative mx-auto px-6 py-20 md:py-32">
+      <div className="container relative mx-auto px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent leading-tight pb-2">
             Game Nights

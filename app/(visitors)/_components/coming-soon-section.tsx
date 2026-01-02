@@ -2,8 +2,8 @@ import { Rocket } from "lucide-react";
 
 export function ComingSoonSection() {
   return (
-    <section className="border-t border-border/50 bg-background/50">
-      <div className="container mx-auto px-6 py-20 md:py-28">
+    <section className="flex-1 flex items-center border-t border-border/50 bg-background/50">
+      <div className="container mx-auto px-6 py-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Icon */}
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-linear-to-br from-purple-500/20 to-blue-500/20 mb-8 shadow-lg shadow-purple-500/20">
