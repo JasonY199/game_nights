@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardDescription,
@@ -5,6 +7,33 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Dices, Users, Trophy } from "lucide-react";
+
+const features = [
+  {
+    icon: Dices,
+    title: "Track Games",
+    description: "Log every game night and keep a complete history",
+    borderColor: "border-purple-500/20",
+    bgColor: "bg-purple-500/10",
+    iconColor: "text-purple-400",
+  },
+  {
+    icon: Users,
+    title: "Manage Balances",
+    description: "Keep track of who owes what in friendly games",
+    borderColor: "border-blue-500/20",
+    bgColor: "bg-blue-500/10",
+    iconColor: "text-blue-400",
+  },
+  {
+    icon: Trophy,
+    title: "Compete",
+    description: "See who's winning and climbing the leaderboard",
+    borderColor: "border-purple-500/20",
+    bgColor: "bg-purple-500/10",
+    iconColor: "text-purple-400",
+  },
+];
 
 export function HeroSection() {
   return (
@@ -14,59 +43,51 @@ export function HeroSection() {
 
       <div className="container relative mx-auto px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent leading-tight pb-2">
+          {/* Animated Heading */}
+          <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight pb-2 animate-gradient animate-fade-in-down animation-delay-0">
             Game Nights
           </h1>
-          <p className="text-xl md:text-2xl text-foreground/80 mb-4">
+
+          {/* Animated Subtitle */}
+          <p className="text-xl md:text-2xl text-foreground/80 mb-4 animate-fade-in-down animation-delay-200">
             Track games, balances, and friendly competition - all in one place.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground mb-12">
-            <span className="px-3 py-1 rounded-full bg-muted">Private</span>
-            <span className="px-3 py-1 rounded-full bg-muted">
+
+          {/* Animated Badges */}
+          <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground mb-12 animate-fade-in-down animation-delay-400">
+            <span className="px-3 py-1 rounded-full bg-muted transition-transform hover:scale-105 duration-300">
+              Private
+            </span>
+            <span className="px-3 py-1 rounded-full bg-muted transition-transform hover:scale-105 duration-300">
               Invite-only
             </span>
-            <span className="px-3 py-1 rounded-full bg-muted">
+            <span className="px-3 py-1 rounded-full bg-muted transition-transform hover:scale-105 duration-300">
               No real money
             </span>
           </div>
 
-          {/* Feature Cards */}
+          {/* Feature Cards with Staggered Animations */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
-            <Card className="border-purple-500/20">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 mx-auto">
-                  <Dices className="w-6 h-6 text-purple-400" />
-                </div>
-                <CardTitle className="text-lg">Track Games</CardTitle>
-                <CardDescription>
-                  Log every game night and keep a complete history
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="border-blue-500/20">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 mx-auto">
-                  <Users className="w-6 h-6 text-blue-400" />
-                </div>
-                <CardTitle className="text-lg">Manage Balances</CardTitle>
-                <CardDescription>
-                  Keep track of who owes what in friendly games
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="border-purple-500/20">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 mx-auto">
-                  <Trophy className="w-6 h-6 text-purple-400" />
-                </div>
-                <CardTitle className="text-lg">Compete</CardTitle>
-                <CardDescription>
-                  See who&apos;s winning and climbing the leaderboard
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              const delayClass = index === 0 ? 'animation-delay-600' : index === 1 ? 'animation-delay-750' : 'animation-delay-900';
+              return (
+                <Card
+                  key={feature.title}
+                  className={`${feature.borderColor} hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 animate-fade-in-down ${delayClass}`}
+                >
+                  <CardHeader>
+                    <div
+                      className={`w-12 h-12 rounded-lg ${feature.bgColor} flex items-center justify-center mb-4 mx-auto transition-transform duration-300 group-hover:scale-110`}
+                    >
+                      <Icon className={`w-6 h-6 ${feature.iconColor}`} />
+                    </div>
+                    <CardTitle className="font-heading text-lg">{feature.title}</CardTitle>
+                    <CardDescription>{feature.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </div>

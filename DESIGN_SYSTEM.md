@@ -23,10 +23,21 @@ bg-linear-to-br from-purple-500/10 via-transparent to-blue-500/10
 
 ### Gradient Text (Headlines, Logo)
 
+**Standard gradient (for static text):**
+
 ```tsx
 bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent
 // Add leading-tight pb-2 to prevent descender cutoff
 ```
+
+**Animated gradient (for hero titles):**
+
+```tsx
+bg-linear-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight pb-2 animate-gradient
+// Three-color gradient with infinite subtle animation
+```
+
+The `animate-gradient` class creates a smooth, infinite gradient shift animation (defined in globals.css).
 
 ### Component Accent Colors
 
@@ -47,18 +58,30 @@ bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent
 
 ## Button Styling Guidelines
 
-### Outline Buttons (Subtle, for secondary actions like "Login")
+### Refined Outline Buttons (Primary style for most actions)
+
+This is the **preferred button style** for the site - subtle, elegant, and matches the overall design aesthetic.
 
 ```tsx
-<Button 
-  variant="outline" 
-  className="border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/5"
+<Button
+  variant="outline"
+  className="border-purple-400/40 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-400/60 text-foreground transition-all duration-300 hover:shadow-md hover:shadow-purple-500/10"
 >
   Login
 </Button>
 ```
 
-### Gradient Buttons (Bold, for primary CTAs - use sparingly)
+**Features:**
+
+- Subtle purple border with low opacity (`border-purple-400/40`)
+- Very light purple background (`bg-purple-500/5`)
+- Gentle glow on hover (`hover:shadow-md hover:shadow-purple-500/10`)
+- Smooth transitions (`transition-all duration-300`)
+- Maintains text color consistency (`text-foreground`)
+
+### Gradient Buttons (Bold, for primary CTAs - use VERY sparingly)
+
+**Note:** Gradient buttons are too bold for this site's aesthetic. Only use for major primary CTAs if absolutely necessary.
 
 ```tsx
 <Button className="bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0">
@@ -68,8 +91,8 @@ bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent
 
 ### When to use
 
-- Outline: Navigation, login, secondary actions
-- Gradient: Primary call-to-action buttons only
+- **Refined Outline**: Login, navigation, forms, most actions (default choice)
+- **Gradient**: Major primary call-to-action buttons only (use very sparingly)
 
 ## Component Patterns
 
@@ -115,12 +138,11 @@ bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent
 <span className="px-3 py-1 rounded-full bg-muted">Text</span>
 ```
 
-### Section Spacing
+### Spacing
 
-- Container: `container mx-auto px-4`
-- Section padding: `py-16 md:py-24` for standard sections
-- Hero padding: `py-20 md:py-32` for hero sections
-- Section transitions: Use `border-t border-border/50` for clean separation
+- Container: `container mx-auto px-6`
+- Section padding: `py-20` (standard), `py-20 md:py-32` (hero)
+- Section separators: `border-t border-border/50`
 
 ## Layout Guidelines
 
@@ -128,6 +150,14 @@ bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent
 - Clean transitions between sections
 - Avoid repeating background patterns
 - Keep "Coming Soon" and secondary sections clean with solid backgrounds
+
+## Animations
+
+See **ANIMATIONS.md** for complete animation patterns including:
+
+- Page load animations (fade-in-up, zoom-in)
+- Hover effects (gradient underlines, scale, glow)
+- Staggered animations with delays
 
 ## Tailwind v4 Notes
 

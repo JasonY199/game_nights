@@ -65,16 +65,12 @@ npm run lint         # Run ESLint
 ## Installed shadcn Components
 
 - Button
-- Card (with CardHeader, CardTitle, CardDescription, CardContent, CardFooter)
-- Input
-- Label
+- Card (CardHeader, CardTitle, CardDescription, CardContent, CardFooter)
+- Input, Label
 - Alert
+- Sheet (SheetContent, SheetHeader, SheetTitle, SheetTrigger)
 
-## Adding More Components
-
-```bash
-npx shadcn@latest add <component-name>
-```
+To add more: `npx shadcn@latest add <component-name>`
 
 ## Layout System (IMPORTANT)
 
@@ -86,9 +82,7 @@ The app uses a **flexbox sticky footer pattern** to ensure proper layout across 
 // app/layout.tsx
 <body className="flex flex-col min-h-screen">
   <Header />
-  <div className="flex-1 flex flex-col">
-    {children}
-  </div>
+  <div className="flex-1 flex flex-col">{children}</div>
   <Footer />
 </body>
 ```
@@ -107,9 +101,7 @@ The app uses a **flexbox sticky footer pattern** to ensure proper layout across 
 // For pages with a single centered element (login, register, error pages)
 <main className="relative flex flex-1 items-center justify-center py-12 px-6">
   <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 via-transparent to-blue-500/10" />
-  <div className="relative w-full max-w-md mx-auto">
-    {/* Your content */}
-  </div>
+  <div className="relative w-full max-w-md mx-auto">{/* Your content */}</div>
 </main>
 ```
 
@@ -118,7 +110,7 @@ The app uses a **flexbox sticky footer pattern** to ensure proper layout across 
 ```tsx
 // For pages with multiple stacked sections
 <main className="flex-1 flex flex-col">
-  <Section1 />  {/* Each section can use flex-1 for equal distribution */}
+  <Section1 /> {/* Each section can use flex-1 for equal distribution */}
   <Section2 />
 </main>
 ```
@@ -128,9 +120,7 @@ The app uses a **flexbox sticky footer pattern** to ensure proper layout across 
 ```tsx
 // For sections that should be vertically centered within their flex space
 <section className="flex-1 flex items-center overflow-hidden">
-  <div className="container mx-auto px-6 py-20">
-    {/* Content */}
-  </div>
+  <div className="container mx-auto px-6 py-20">{/* Content */}</div>
 </section>
 ```
 
@@ -151,30 +141,48 @@ The app uses a **flexbox sticky footer pattern** to ensure proper layout across 
 
 ## Design System
 
-See **DESIGN_SYSTEM.md** for:
+- **DESIGN_SYSTEM.md** - Colors, components, buttons, layout patterns
+- **ANIMATIONS.md** - Animation patterns and examples
 
-- Color palette and brand colors (Purple & Blue theme)
-- Component patterns and code examples
-- Button styling guidelines
-- Layout guidelines
-- Mobile-first approach
+## Animation System
+
+The site uses a **cascading top-down animation pattern** where elements fade in from above in sequence:
+
+### Key Principles
+
+- All animations fade **from top** (`-translate-y-4`) creating a waterfall effect
+- Elements animate sequentially with 150-200ms delays between them
+- Use `mounted` state pattern to prevent flash on page load
+- All page load animations use `duration-700`
+- Lift `mounted` state to parent when coordinating multiple sections
+
+### Implementation Examples
+
+- **Hero Section**: See `app/(visitors)/_components/hero-section.tsx`
+- **Login Page**: See `app/(visitors)/login/page.tsx`
+- **Multi-Section Page**: See `app/(visitors)/page.tsx`
+
+For complete animation patterns and timing, see **ANIMATIONS.md**
 
 ## Current Status
 
-- ✅ Next.js project initialized
-- ✅ shadcn/ui installed and configured (dark mode)
-- ✅ Project structure organized with route groups and co-located components
-- ✅ Flexbox sticky footer layout system implemented
-- ✅ Header component with gradient logo and navigation links
-- ✅ Hero section with gradient background and feature cards
-- ✅ Coming soon section with clean design
-- ✅ Footer component
-- ✅ Login page with centered card layout
-- ✅ Design system documented
-- ✅ Layout patterns documented
-- 🚧 Register page - to be built
-- 🚧 Supabase authentication integration - to be added
-- 🚧 User dashboard and app features - to be built
+**Completed:**
+
+- Next.js 15 + TypeScript + Tailwind v4 setup
+- shadcn/ui with dark mode
+- Flexbox sticky footer layout system
+- Responsive header with mobile menu and animations
+- Cascading top-down page load animation system
+- Animated hero and coming soon sections with sequential timing
+- Login page with animated card and gradient text
+- Refined button styling (subtle purple outline with glow)
+- Design system and animation patterns fully documented
+
+**To Build:**
+
+- Register page (apply same animation patterns)
+- Supabase authentication
+- User dashboard and app features
 
 ## Important Notes
 
@@ -183,3 +191,37 @@ See **DESIGN_SYSTEM.md** for:
 - Follow the purple/blue color theme (see DESIGN_SYSTEM.md)
 - Mobile-first approach for all layouts
 - Icons from lucide-react are available
+
+## Markdown Documentation Guidelines
+
+When editing or creating `.md` files in this project, follow these rules to avoid linting errors:
+
+### Heading Structure
+
+- Use proper heading hierarchy: `#`, `##`, `###`, `####`
+- **NEVER** use bold text (`**text**`) as a substitute for headings
+- ❌ Wrong: `**Example: Something**`
+- ✅ Correct: `#### Example: Something`
+
+### Code Block Formatting
+
+- In TSX/JSX code blocks, use compact comment syntax: `{/* comment */}`
+- ❌ Wrong: `{ /* comment */ }` (extra spaces cause heading detection issues)
+- ✅ Correct: `{/* comment */}`
+- Remove trailing semicolons from JSX elements in examples
+- ❌ Wrong: `</div>;`
+- ✅ Correct: `</div>`
+
+### className Examples
+
+- When showing className examples, use actual JSX syntax, not assignments
+- ❌ Wrong: `className = "transition-all"`
+- ✅ Correct: `className="transition-all"`
+
+### Why This Matters
+
+The markdownlint tool (MD036) flags emphasis (bold/italic) used instead of proper headings. Proper heading structure ensures:
+
+- Better navigation in documentation
+- Consistent table of contents generation
+- No linting errors in the codebase

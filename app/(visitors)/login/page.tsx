@@ -5,11 +5,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,9 +28,11 @@ export default function LoginPage() {
       <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 via-transparent to-blue-500/10" />
 
       <div className="relative w-full max-w-md mx-auto">
-          <Card className="border-purple-500/20 shadow-xl shadow-purple-500/5">
+          <Card className={`border-purple-500/20 shadow-xl shadow-purple-500/5 transition-all duration-700 ${
+            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+          }`}>
             <CardHeader className="text-center space-y-2">
-              <CardTitle className="text-3xl font-bold bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent leading-tight pb-2">
+              <CardTitle className="font-heading text-3xl font-bold bg-linear-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight pb-2 animate-gradient">
                 Game Nights
               </CardTitle>
               <CardDescription className="text-base">
@@ -61,7 +68,7 @@ export default function LoginPage() {
                 <Button
                   type="submit"
                   variant="outline"
-                  className="w-full border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/5"
+                  className="w-full mt-2 border-purple-400/40 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-400/60 text-foreground transition-all duration-300 hover:shadow-md hover:shadow-purple-500/10"
                 >
                   Login
                 </Button>
