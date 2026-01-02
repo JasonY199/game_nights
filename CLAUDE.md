@@ -18,15 +18,22 @@ A Next.js application for managing game nights and social gaming events.
 ```text
 game_nights/
 ├── app/                        # Next.js app directory
-│   ├── (visitors)/            # Public home page route group
-│   │   ├── _components/       # Home page section components
+│   ├── (visitors)/            # Public marketing pages route group
+│   │   ├── _components/       # Visitor page section components
 │   │   │   ├── hero-section.tsx
 │   │   │   └── coming-soon-section.tsx
-│   │   ├── signin/            # Sign in page
+│   │   └── page.tsx           # Home page (/)
+│   ├── (auth)/                # Authentication pages route group
+│   │   ├── _components/       # Auth-specific shared components
+│   │   │   ├── auth-card-wrapper.tsx      # Animated card wrapper
+│   │   │   ├── auth-divider.tsx           # "Or continue with email" divider
+│   │   │   ├── password-input.tsx         # Password field with toggle
+│   │   │   ├── social-login-buttons.tsx   # Google/Apple OAuth buttons
+│   │   │   └── auth-submit-button.tsx     # Gradient submit button
+│   │   ├── signin/            # Sign in page (/signin)
 │   │   │   └── page.tsx
-│   │   ├── signup/            # Sign up page
-│   │   │   └── page.tsx
-│   │   └── page.tsx           # Home page
+│   │   └── signup/            # Sign up page (/signup)
+│   │       └── page.tsx
 │   ├── (user)/                # Authenticated user pages (to be added)
 │   │   ├── _components/       # Shared app components
 │   │   ├── dashboard/
@@ -50,8 +57,11 @@ game_nights/
 - **Route Groups**: `(visitors)`, `(auth)`, `(user)` - organize routes without affecting URLs
 - **Private Folders**: `_components` - not accessible as routes, for components only
 - **Co-location**: Components live close to where they're used
+  - `(auth)/_components` contains auth-specific reusable components
+  - `(visitors)/_components` contains marketing page section components
 - **Shared Components**: Only truly universal components go in `components/`
 - **Layout Components**: Site-wide header/footer in `components/layout/`
+- **DRY Principle**: Auth pages use shared components to eliminate code duplication
 
 ## Development Commands
 
@@ -159,11 +169,65 @@ The site uses a **cascading top-down animation pattern** where elements fade in 
 ### Implementation Examples
 
 - **Hero Section**: See `app/(visitors)/_components/hero-section.tsx`
-- **Sign In Page**: See `app/(visitors)/signin/page.tsx`
-- **Sign Up Page**: See `app/(visitors)/signup/page.tsx`
+- **Sign In Page**: See `app/(auth)/signin/page.tsx`
+- **Sign Up Page**: See `app/(auth)/signup/page.tsx`
 - **Multi-Section Page**: See `app/(visitors)/page.tsx`
 
 For complete animation patterns and timing, see **ANIMATIONS.md**
+
+## Auth Component System
+
+The `(auth)` route group contains reusable components that eliminate code duplication across auth pages:
+
+### AuthCardWrapper
+
+Handles the full page layout, gradient background, and animated card wrapper for all auth pages.
+
+```tsx
+<AuthCardWrapper title="Sign In" description="Welcome back!" mounted={mounted}>
+  {/* Auth page content */}
+</AuthCardWrapper>
+```
+
+### SocialLoginButtons
+
+Google and Apple OAuth buttons with proper icons and styling.
+
+```tsx
+<SocialLoginButtons onGoogleClick={handleGoogle} onAppleClick={handleApple} />
+```
+
+### AuthDivider
+
+The "Or continue with email" divider used between social and email auth.
+
+```tsx
+<AuthDivider />
+```
+
+### PasswordInput
+
+Password input field with eye icon toggle for show/hide. Supports optional right element (e.g., "Forgot password?" link).
+
+```tsx
+<PasswordInput
+  id="password"
+  label="Password"
+  value={password}
+  onChange={setPassword}
+  rightElement={<Link href="/forgot-password">Forgot password?</Link>}
+/>
+```
+
+### AuthSubmitButton
+
+Gradient submit button styled for auth forms.
+
+```tsx
+<AuthSubmitButton>Sign in</AuthSubmitButton>
+```
+
+These components keep auth pages DRY - changes to styling or behavior only need to be made in one place.
 
 ## Current Status
 
@@ -175,22 +239,29 @@ For complete animation patterns and timing, see **ANIMATIONS.md**
 - Responsive header with mobile menu and animations (using "Sign in" terminology)
 - Cascading top-down page load animation system
 - Animated hero and coming soon sections with sequential timing
+- `(auth)` route group with reusable auth components:
+  - `AuthCardWrapper` - Animated card with gradient background
+  - `SocialLoginButtons` - Google/Apple OAuth buttons with refined sizing
+  - `AuthDivider` - "Or continue with email" separator
+  - `PasswordInput` - Password field with eye toggle and optional right element
+  - `AuthSubmitButton` - Gradient submit button
 - Sign in page (`/signin`) with:
   - Animated gradient title
-  - Google and Apple OAuth buttons
+  - Google and Apple OAuth buttons (refined icon sizing: Google w-5 h-5, Apple w-6 h-6)
   - Email/password form with visibility toggle
   - "Forgot password?" link
-  - Proper spacing and styling
+  - All using shared auth components
 - Sign up page (`/signup`) with:
   - Animated gradient title
   - Google and Apple OAuth buttons
   - Email/password form with visibility toggles
   - Username field
   - Confirm password field
-  - Proper spacing and styling
+  - All using shared auth components
 - Refined button styling (subtle purple outline with glow)
 - Design system and animation patterns fully documented
 - Consistent "Sign in" / "Sign up" terminology throughout app
+- DRY principle applied - auth pages use shared components, no duplicate code
 
 **To Build:**
 

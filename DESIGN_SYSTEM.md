@@ -79,22 +79,64 @@ This is the **preferred button style** for the site - subtle, elegant, and match
 - Smooth transitions (`transition-all duration-300`)
 - Maintains text color consistency (`text-foreground`)
 
-### Gradient Buttons (Bold, for primary CTAs - use VERY sparingly)
+### Gradient Buttons (For auth form submissions)
 
-**Note:** Gradient buttons are too bold for this site's aesthetic. Only use for major primary CTAs if absolutely necessary.
+Used specifically for auth form submit buttons to create a clear primary action.
 
 ```tsx
-<Button className="bg-linear-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0">
-  Get Started
+<Button
+  type="submit"
+  className="w-full h-9 bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium transition-all duration-200 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+>
+  Sign in
 </Button>
 ```
+
+**Features:**
+
+- Full width on auth forms (`w-full`)
+- Gradient background with purple-to-blue transition
+- Hover glow effect for emphasis
+- White text for contrast
 
 ### When to use
 
 - **Refined Outline**: Login, navigation, forms, most actions (default choice)
-- **Gradient**: Major primary call-to-action buttons only (use very sparingly)
+- **Gradient**: Auth form submit buttons (Sign in, Sign up, Reset password)
 
 ## Component Patterns
+
+### Social Login Buttons (OAuth)
+
+Google and Apple sign-in buttons with brand-consistent icons and refined sizing.
+
+```tsx
+<Button
+  variant="outline"
+  className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300"
+>
+  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+    {/* Google icon paths with brand colors */}
+  </svg>
+  Continue with Google
+</Button>
+
+<Button
+  variant="outline"
+  className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300"
+>
+  <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+    {/* Apple icon path */}
+  </svg>
+  Continue with Apple
+</Button>
+```
+
+**Icon sizing notes:**
+
+- Google: `w-5 h-5` - Smaller due to multi-color detailed design
+- Apple: `w-6 h-6` - Larger to match visual weight of Google icon
+- Icon spacing: `mr-2` - Keeps icons close to text without being cramped
 
 ### Header (with backdrop blur effect)
 

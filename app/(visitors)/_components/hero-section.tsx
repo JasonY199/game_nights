@@ -55,13 +55,13 @@ export function HeroSection() {
 
           {/* Animated Badges */}
           <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground mb-12 animate-fade-in-down animation-delay-400">
-            <span className="px-3 py-1 rounded-full bg-muted transition-transform hover:scale-105 duration-300">
+            <span className="px-4 py-1.5 rounded-full bg-linear-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-sm transition-all hover:scale-105 hover:border-purple-400/40 hover:shadow-[0_0_15px_rgba(139,92,246,0.2)] duration-300">
               Private
             </span>
-            <span className="px-3 py-1 rounded-full bg-muted transition-transform hover:scale-105 duration-300">
+            <span className="px-4 py-1.5 rounded-full bg-linear-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-sm transition-all hover:scale-105 hover:border-purple-400/40 hover:shadow-[0_0_15px_rgba(139,92,246,0.2)] duration-300">
               Invite-only
             </span>
-            <span className="px-3 py-1 rounded-full bg-muted transition-transform hover:scale-105 duration-300">
+            <span className="px-4 py-1.5 rounded-full bg-linear-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-sm transition-all hover:scale-105 hover:border-purple-400/40 hover:shadow-[0_0_15px_rgba(139,92,246,0.2)] duration-300">
               No real money
             </span>
           </div>
@@ -74,11 +74,11 @@ export function HeroSection() {
               return (
                 <Card
                   key={feature.title}
-                  className={`${feature.borderColor} hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 animate-fade-in-down ${delayClass}`}
+                  className={`border-purple-500/20 bg-linear-to-br from-purple-500/5 to-blue-500/5 backdrop-blur-sm hover:scale-105 hover:border-purple-400/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] transition-all duration-300 animate-fade-in-down ${delayClass}`}
                 >
                   <CardHeader>
                     <div
-                      className={`w-12 h-12 rounded-lg ${feature.bgColor} flex items-center justify-center mb-4 mx-auto transition-transform duration-300 group-hover:scale-110`}
+                      className={`w-12 h-12 rounded-lg ${feature.bgColor} border ${feature.borderColor} flex items-center justify-center mb-4 mx-auto transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]`}
                     >
                       <Icon className={`w-6 h-6 ${feature.iconColor}`} />
                     </div>
