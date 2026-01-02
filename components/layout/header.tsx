@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { href: "#", label: "About" },
+  { href: "#", label: "Games" },
   { href: "#", label: "Features" },
-  { href: "#", label: "Contact" },
+  { href: "#", label: "News" },
 ];
 
 export function Header() {
@@ -18,6 +18,7 @@ export function Header() {
         {/* Logo */}
         <Link
           href="/"
+          onClick={() => setMobileMenuOpen(false)}
           className="font-heading text-xl font-bold bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
         >
           Game Nights
