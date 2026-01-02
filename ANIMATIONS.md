@@ -194,6 +194,10 @@ When animating multiple sections on the same page:
 
 ### Gradient Underline (Navigation)
 
+#### Desktop Navigation
+
+Used for both nav links and Login button - consistent design across the header:
+
 ```tsx
 <Link
   href="#"
@@ -203,6 +207,52 @@ When animating multiple sections on the same page:
   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-linear-to-r from-purple-400 to-blue-400 group-hover:w-3/4 transition-all duration-300" />
 </Link>
 ```
+
+**Desktop Features:**
+
+- Gradient underline animates from 0 to 75% width on hover
+- Text color transitions from muted to full brightness
+- Purple background glow appears on hover
+- All navigation items (including Login) use the same pattern
+
+#### Mobile Navigation (clean with always-visible gradient underline)
+
+Mobile users don't have hover states, so we show the gradient underline by default in a clean, minimal style. All navigation items (including Login) are part of one unified list:
+
+```tsx
+<nav className="flex flex-col gap-8 py-12 items-center">
+  {navLinks.map((link) => (
+    <Link
+      key={link.label}
+      href={link.href}
+      className="text-xl font-medium text-foreground active:text-purple-400 transition-colors duration-200 py-2 relative"
+    >
+      {link.label}
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-0.5 bg-linear-to-r from-purple-400 to-blue-400" />
+    </Link>
+  ))}
+
+  {/* Login uses same pattern */}
+  <Link
+    href="/login"
+    className="text-xl font-medium text-foreground active:text-purple-400 transition-colors duration-200 py-2 relative"
+  >
+    Login
+    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-0.5 bg-linear-to-r from-purple-400 to-blue-400" />
+  </Link>
+</nav>
+```
+
+**Mobile Menu Features:**
+
+- Clean, minimal design without backgrounds or borders
+- Gradient underline **always visible** (2/3 width, positioned at `bottom-0`)
+- Active state changes text color to purple (`active:text-purple-400`)
+- Larger text size (`text-xl`) for better mobile readability
+- Equal spacing between all items (`gap-8`) with symmetric padding (`py-12`)
+- Fast transitions (`duration-200`) for responsive touch feedback
+- All links (About, Features, Contact, Login) treated equally in one nav
+- Animation handled by container slide-down, not individual items
 
 ### Scale
 
