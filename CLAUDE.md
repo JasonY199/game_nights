@@ -22,11 +22,11 @@ game_nights/
 │   │   ├── _components/       # Home page section components
 │   │   │   ├── hero-section.tsx
 │   │   │   └── coming-soon-section.tsx
-│   │   ├── login/             # Login page
+│   │   ├── signin/            # Sign in page
+│   │   │   └── page.tsx
+│   │   ├── signup/            # Sign up page
 │   │   │   └── page.tsx
 │   │   └── page.tsx           # Home page
-│   ├── (auth)/                # Auth pages (to be added)
-│   │   └── register/
 │   ├── (user)/                # Authenticated user pages (to be added)
 │   │   ├── _components/       # Shared app components
 │   │   ├── dashboard/
@@ -95,10 +95,10 @@ The app uses a **flexbox sticky footer pattern** to ensure proper layout across 
 
 ### Page Patterns
 
-#### Pattern 1: Centered Single Content (e.g., Login Page)
+#### Pattern 1: Centered Single Content (e.g., Sign In/Sign Up Pages)
 
 ```tsx
-// For pages with a single centered element (login, register, error pages)
+// For pages with a single centered element (signin, signup, error pages)
 <main className="relative flex flex-1 items-center justify-center py-12 px-6">
   <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 via-transparent to-blue-500/10" />
   <div className="relative w-full max-w-md mx-auto">{/* Your content */}</div>
@@ -159,7 +159,8 @@ The site uses a **cascading top-down animation pattern** where elements fade in 
 ### Implementation Examples
 
 - **Hero Section**: See `app/(visitors)/_components/hero-section.tsx`
-- **Login Page**: See `app/(visitors)/login/page.tsx`
+- **Sign In Page**: See `app/(visitors)/signin/page.tsx`
+- **Sign Up Page**: See `app/(visitors)/signup/page.tsx`
 - **Multi-Section Page**: See `app/(visitors)/page.tsx`
 
 For complete animation patterns and timing, see **ANIMATIONS.md**
@@ -171,17 +172,30 @@ For complete animation patterns and timing, see **ANIMATIONS.md**
 - Next.js 15 + TypeScript + Tailwind v4 setup
 - shadcn/ui with dark mode
 - Flexbox sticky footer layout system
-- Responsive header with mobile menu and animations
+- Responsive header with mobile menu and animations (using "Sign in" terminology)
 - Cascading top-down page load animation system
 - Animated hero and coming soon sections with sequential timing
-- Login page with animated card and gradient text
+- Sign in page (`/signin`) with:
+  - Animated gradient title
+  - Google and Apple OAuth buttons
+  - Email/password form with visibility toggle
+  - "Forgot password?" link
+  - Proper spacing and styling
+- Sign up page (`/signup`) with:
+  - Animated gradient title
+  - Google and Apple OAuth buttons
+  - Email/password form with visibility toggles
+  - Username field
+  - Confirm password field
+  - Proper spacing and styling
 - Refined button styling (subtle purple outline with glow)
 - Design system and animation patterns fully documented
+- Consistent "Sign in" / "Sign up" terminology throughout app
 
 **To Build:**
 
-- Register page (apply same animation patterns)
-- Supabase authentication
+- Supabase authentication integration (OAuth ready for Google/Apple on free tier)
+- Forgot password page
 - User dashboard and app features
 
 ## Important Notes
@@ -191,6 +205,8 @@ For complete animation patterns and timing, see **ANIMATIONS.md**
 - Follow the purple/blue color theme (see DESIGN_SYSTEM.md)
 - Mobile-first approach for all layouts
 - Icons from lucide-react are available
+- Use "Sign in" and "Sign up" terminology (not Login/Register)
+- Authentication routes: `/signin` and `/signup`
 
 ## Markdown Documentation Guidelines
 
