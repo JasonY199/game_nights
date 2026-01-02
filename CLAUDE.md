@@ -45,8 +45,8 @@ game_nights/
 ├── components/                 # Shared components
 │   ├── ui/                    # shadcn components
 │   └── layout/                # Site-wide layout components
-│       ├── header.tsx         # Public header (with navigation)
-│       └── footer.tsx         # Footer (all pages)
+│       ├── header.tsx         # Public header (Games, Features, News)
+│       └── footer.tsx         # Footer (About, Contact, Update Log)
 ├── lib/                        # Utility functions
 │   └── utils.ts               # shadcn utilities
 └── public/                     # Static assets
@@ -237,6 +237,11 @@ These components keep auth pages DRY - changes to styling or behavior only need 
 - shadcn/ui with dark mode
 - Flexbox sticky footer layout system
 - Responsive header with mobile menu and animations (using "Sign in" terminology)
+  - Navigation: Games, Features, News
+  - Mobile menu closes on logo click
+- Footer with responsive link spacing
+  - Links: About, Contact, Update Log
+  - Responsive gap (smaller on mobile, larger on desktop)
 - Cascading top-down page load animation system
 - Animated hero and coming soon sections with sequential timing
 - `(auth)` route group with reusable auth components:
