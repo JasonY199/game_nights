@@ -24,22 +24,12 @@ export default function SignUpPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Implement Supabase authentication
+    // TODO: Implement Supabase email/password authentication
     if (password !== confirmPassword) {
       console.error("Passwords do not match");
       return;
     }
     console.log("Registration attempt:", { email, username, password });
-  };
-
-  const handleGoogleSignup = () => {
-    // TODO: Implement Supabase Google OAuth
-    console.log("Google signup");
-  };
-
-  const handleAppleSignup = () => {
-    // TODO: Implement Supabase Apple OAuth
-    console.log("Apple signup");
   };
 
   return (
@@ -49,10 +39,7 @@ export default function SignUpPage() {
       mounted={mounted}
     >
       <div className="space-y-5">
-        <SocialLoginButtons
-          onGoogleClick={handleGoogleSignup}
-          onAppleClick={handleAppleSignup}
-        />
+        <SocialLoginButtons />
 
         <AuthDivider />
 

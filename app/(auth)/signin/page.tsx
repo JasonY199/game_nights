@@ -22,18 +22,8 @@ export default function SignInPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Implement Supabase authentication
+    // TODO: Implement Supabase email/password authentication
     console.log("Login attempt:", { email, password });
-  };
-
-  const handleGoogleLogin = () => {
-    // TODO: Implement Supabase Google OAuth
-    console.log("Google login");
-  };
-
-  const handleAppleLogin = () => {
-    // TODO: Implement Supabase Apple OAuth
-    console.log("Apple login");
   };
 
   return (
@@ -43,10 +33,7 @@ export default function SignInPage() {
       mounted={mounted}
     >
       <div className="space-y-5">
-        <SocialLoginButtons
-          onGoogleClick={handleGoogleLogin}
-          onAppleClick={handleAppleLogin}
-        />
+        <SocialLoginButtons />
 
         <AuthDivider />
 

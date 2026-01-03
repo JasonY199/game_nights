@@ -1,20 +1,30 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 
-interface SocialLoginButtonsProps {
-  onGoogleClick: () => void;
-  onAppleClick: () => void;
-}
+export function SocialLoginButtons() {
+  const handleGoogleLogin = async () => {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/api/auth/callback`,
+      },
+    });
+  };
 
-export function SocialLoginButtons({
-  onGoogleClick,
-  onAppleClick,
-}: SocialLoginButtonsProps) {
+  const handleAppleLogin = () => {
+    // TODO: Implement Supabase Apple OAuth
+    console.log("Apple login");
+  };
+
   return (
     <div className="space-y-3">
       <Button
         type="button"
         variant="outline"
-        onClick={onGoogleClick}
+        onClick={handleGoogleLogin}
         className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300"
       >
         <svg className="w-5! h-5! mr-0.5!" viewBox="0 0 24 24">
@@ -41,7 +51,7 @@ export function SocialLoginButtons({
       <Button
         type="button"
         variant="outline"
-        onClick={onAppleClick}
+        onClick={handleAppleLogin}
         className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300"
       >
         <svg

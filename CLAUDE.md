@@ -11,6 +11,8 @@ A Next.js application for managing game nights and social gaming events.
 - **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui (Neutral color scheme, Dark mode enabled)
 - **Icons**: lucide-react
+- **Authentication**: Supabase Auth (Google OAuth configured)
+- **Database**: Supabase (PostgreSQL)
 - **Package Manager**: npm
 
 ## Project Structure
@@ -28,18 +30,23 @@ gamenights/
 │   │   │   ├── auth-card-wrapper.tsx      # Animated card wrapper
 │   │   │   ├── auth-divider.tsx           # "Or continue with email" divider
 │   │   │   ├── password-input.tsx         # Password field with toggle
-│   │   │   ├── social-login-buttons.tsx   # Google/Apple OAuth buttons
+│   │   │   ├── social-login-buttons.tsx   # Google/Apple OAuth buttons (Google wired)
 │   │   │   └── auth-submit-button.tsx     # Gradient submit button
 │   │   ├── signin/            # Sign in page (/signin)
 │   │   │   └── page.tsx
 │   │   └── signup/            # Sign up page (/signup)
 │   │       └── page.tsx
-│   ├── (user)/                # Authenticated user pages (to be added)
+│   ├── (user)/                # Authenticated user pages
 │   │   ├── _components/       # Shared app components
-│   │   ├── dashboard/
-│   │   ├── games/
+│   │   ├── dashboard/         # Dashboard page (/dashboard) - landing page after login
+│   │   │   └── page.tsx
+│   │   ├── games/             # Games section (to be added)
 │   │   ├── mod/               # Mod-only pages (nested)
 │   │   └── admin/             # Admin-only pages (nested)
+│   ├── api/                   # API routes
+│   │   └── auth/              # Auth-related API handlers
+│   │       └── callback/      # OAuth callback handler
+│   │           └── route.ts
 │   ├── layout.tsx             # Root layout (sticky footer pattern)
 │   └── globals.css            # Global styles + Tailwind
 ├── components/                 # Shared components
@@ -48,7 +55,11 @@ gamenights/
 │       ├── header.tsx         # Public header (Games, Features, News)
 │       └── footer.tsx         # Footer (About, Contact, Update Log)
 ├── lib/                        # Utility functions
+│   ├── supabase/              # Supabase client helpers
+│   │   ├── client.ts          # Browser client
+│   │   └── server.ts          # Server client with cookie handling
 │   └── utils.ts               # shadcn utilities
+├── .env.local.example         # Environment variables template
 └── public/                     # Static assets
 ```
 
@@ -191,11 +202,13 @@ Handles the full page layout, gradient background, and animated card wrapper for
 
 ### SocialLoginButtons
 
-Google and Apple OAuth buttons with proper icons and styling.
+Google and Apple OAuth buttons with proper icons and styling. Google OAuth is fully functional and integrated with Supabase.
 
 ```tsx
-<SocialLoginButtons onGoogleClick={handleGoogle} onAppleClick={handleApple} />
+<SocialLoginButtons />
 ```
+
+The component handles Google OAuth internally - no need to pass click handlers.
 
 ### AuthDivider
 
@@ -246,23 +259,35 @@ These components keep auth pages DRY - changes to styling or behavior only need 
 - Animated hero and coming soon sections with sequential timing
 - `(auth)` route group with reusable auth components:
   - `AuthCardWrapper` - Animated card with gradient background
-  - `SocialLoginButtons` - Google/Apple OAuth buttons with refined sizing
+  - `SocialLoginButtons` - Google/Apple OAuth buttons (Google fully functional)
   - `AuthDivider` - "Or continue with email" separator
   - `PasswordInput` - Password field with eye toggle and optional right element
   - `AuthSubmitButton` - Gradient submit button
 - Sign in page (`/signin`) with:
   - Animated gradient title
-  - Google and Apple OAuth buttons (refined icon sizing: Google w-5 h-5, Apple w-6 h-6)
-  - Email/password form with visibility toggle
+  - Google OAuth (working) and Apple OAuth (placeholder)
+  - Email/password form with visibility toggle (UI only, not wired)
   - "Forgot password?" link
   - All using shared auth components
 - Sign up page (`/signup`) with:
   - Animated gradient title
-  - Google and Apple OAuth buttons
-  - Email/password form with visibility toggles
+  - Google OAuth (working) and Apple OAuth (placeholder)
+  - Email/password form with visibility toggles (UI only, not wired)
   - Username field
   - Confirm password field
   - All using shared auth components
+- **Supabase Authentication Integration:**
+  - Google OAuth fully functional end-to-end
+  - Browser and server Supabase client helpers (`lib/supabase/`)
+  - OAuth callback handler at `/api/auth/callback`
+  - Session persistence with cookies
+  - Protected dashboard page at `/dashboard`
+  - Sign out functionality
+  - Works on localhost, dev.gamenights.io, and gamenights.io
+- Dashboard page (`/dashboard`) - Landing page for authenticated users
+  - Server-side authentication check
+  - Displays user email and ID
+  - Sign out button with server action
 - Refined button styling (subtle purple outline with glow)
 - Design system and animation patterns fully documented
 - Consistent "Sign in" / "Sign up" terminology throughout app
@@ -270,9 +295,66 @@ These components keep auth pages DRY - changes to styling or behavior only need 
 
 **To Build:**
 
-- Supabase authentication integration (OAuth ready for Google/Apple on free tier)
+- Email/password authentication (UI exists, needs Supabase integration)
+- Apple OAuth integration
 - Forgot password page
-- User dashboard and app features
+- User profile management
+- Game nights features and functionality
+
+## Supabase Configuration
+
+### Environment Variables
+
+Required environment variables (see `.env.local.example`):
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
+
+**Where to find these:**
+
+- Supabase Dashboard → Project Settings → API
+- Copy "Project URL" and "Project API key (anon/public)"
+
+### OAuth Setup
+
+**Supabase Dashboard Configuration:**
+
+1. **Enable Google Provider**: Authentication → Providers → Google
+2. **Add OAuth Credentials**: Enter Google Client ID and Secret
+3. **Configure Redirect URLs**: Authentication → URL Configuration → Redirect URLs
+
+**Allowed Redirect URLs:**
+
+```text
+http://localhost:3000/api/auth/callback
+https://dev.gamenights.io/api/auth/callback
+https://gamenights.io/api/auth/callback
+```
+
+### Authentication Flow
+
+1. User clicks "Continue with Google" on `/signin` or `/signup`
+2. Redirects to Google OAuth consent screen
+3. After approval, Google redirects to `/api/auth/callback?code=...`
+4. Callback handler exchanges code for session and stores in cookies
+5. User redirected to `/dashboard`
+6. Session persists across page refreshes via cookies
+
+### Supabase Helpers
+
+**Browser Client** (`lib/supabase/client.ts`):
+
+- Use in client components
+- Handles OAuth redirects
+- Cookie-based session management
+
+**Server Client** (`lib/supabase/server.ts`):
+
+- Use in server components and API routes
+- Reads session from cookies
+- Handles authentication checks
 
 ## Important Notes
 
@@ -283,6 +365,7 @@ These components keep auth pages DRY - changes to styling or behavior only need 
 - Icons from lucide-react are available
 - Use "Sign in" and "Sign up" terminology (not Login/Register)
 - Authentication routes: `/signin` and `/signup`
+- Protected user routes: `/dashboard` (requires authentication)
 
 ## Markdown Documentation Guidelines
 
