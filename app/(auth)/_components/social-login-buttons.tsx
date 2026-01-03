@@ -25,7 +25,7 @@ export function SocialLoginButtons() {
         type="button"
         variant="outline"
         onClick={handleGoogleLogin}
-        className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300"
+        className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300 cursor-pointer"
       >
         <svg className="w-5! h-5! mr-0.5!" viewBox="0 0 24 24">
           <path
@@ -52,7 +52,7 @@ export function SocialLoginButtons() {
         type="button"
         variant="outline"
         onClick={handleAppleLogin}
-        className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300"
+        className="w-full h-11 border-border/50 hover:bg-accent transition-all duration-300 cursor-pointer"
       >
         <svg
           className="w-6! h-6! mr-0!"

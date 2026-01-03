@@ -64,7 +64,7 @@ export default async function DashboardPage() {
               <Button
                 type="submit"
                 variant="outline"
-                className="w-full border-purple-400/40 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-400/60 text-foreground transition-all duration-300 hover:shadow-md hover:shadow-purple-500/10"
+                className="w-full border-purple-400/40 bg-purple-500/5 hover:bg-purple-500/10 hover:border-purple-400/60 text-foreground transition-all duration-300 hover:shadow-md hover:shadow-purple-500/10 cursor-pointer"
               >
                 Sign Out
               </Button>
