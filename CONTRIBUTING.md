@@ -7,8 +7,7 @@ Hey! Thanks for helping make Game Nights better. Here's how you can share feedba
 Head over to the [Issues](https://github.com/JasonY199/game_nights/issues/new/choose) page and pick a template:
 
 - **🐞 Bug report** - Something's broken or not working right
-- **✨ Feature request** - You have a specific feature or improvement in mind
-- **💡 Idea / Brainstorm** - Share early thoughts or "what if we…" ideas
+- **💡 Idea / Feature request** - Share ideas or suggest new features
 
 ## Tips
 

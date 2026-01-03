@@ -1,12 +1,14 @@
-name: ✨ Feature request
-description: Suggest a new feature or improvement
-title: "[Feature]: "
-labels: ["feature"]
+name: 💡 Idea / Feature request
+description: Share ideas or suggest new features
+title: "[Idea/Feature]: "
+labels: ["idea / feature"]
 body:
   - type: markdown
     attributes:
       value: |
         Have an idea to make Game Nights better? I'd love to hear it!
+
+        Ideas don't need to be fully thought out—share rough thoughts, "what if we…" ideas, or concrete feature requests. Anything goes!
 
   - type: textarea
     id: problem
