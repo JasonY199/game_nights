@@ -1,0 +1,36 @@
+name: ✨ Feature request
+description: Suggest a new feature or improvement
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make Game Nights better? I'd love to hear it!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What's frustrating or missing right now?
+      placeholder: "Example: It's hard to see who's coming to my game night without scrolling through messages"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Your idea / solution
+      description: How would you solve this? What should the feature do?
+      placeholder: "Example: Add an RSVP list that shows who's confirmed, who's maybe, and who declined"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or extra thoughts
+      description: Any other ideas or things you've considered?
+      placeholder: "Example: Could also send reminder texts, or integrate with calendar apps"
+    validations:
+      required: false

@@ -1,0 +1,51 @@
+name: 🐞 Bug report
+description: Something is broken or not working correctly
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make Game Nights better! Let me know what went wrong.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell me what you expected to happen vs. what actually happened.
+      placeholder: |
+        Expected: The button should save my game night
+        Actual: Nothing happens when I click it
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: If you can, list the steps that led to this bug so I can recreate it.
+      placeholder: |
+        1. Go to the dashboard
+        2. Click "Create Game Night"
+        3. Fill out the form
+        4. Click "Save"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or videos
+      description: If you have screenshots or a screen recording, paste them here! They're super helpful.
+      placeholder: Drag and drop images or paste them here
+    validations:
+      required: false
+
+  - type: input
+    id: device
+    attributes:
+      label: Device / Browser
+      description: What device and browser are you using?
+      placeholder: "Example: iPhone 14, Safari or Windows, Chrome"
+    validations:
+      required: false
